@@ -1,0 +1,9 @@
+[package]
+name = "alpha-counter"
+version = "0.1.0"
+edition = "2021"
+description = "Alphabetic counter"
+license = "MIT"
+repository = "https://github.com/qtfkwk/alpha-counter"
+
+[dependencies]
