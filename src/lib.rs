@@ -1,19 +1,19 @@
-struct AlphaCounter {
+pub struct AlphaCounter {
     number: usize,
     alphabet: Vec<char>,
     length: usize,
 }
 
 impl AlphaCounter {
-    fn lower(number: usize) -> Self {
+    pub fn lower(number: usize) -> Self {
         Self::custom(number, "abcdefghijklmnopqrstuvwxyz")
     }
 
-    fn upper(number: usize) -> Self {
+    pub fn upper(number: usize) -> Self {
         Self::custom(number, "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
     }
 
-    fn custom(number: usize, alphabet: &str) -> Self {
+    pub fn custom(number: usize, alphabet: &str) -> Self {
         let alphabet: Vec<char> = alphabet.chars().collect();
         let length = alphabet.len();
         Self {
@@ -23,11 +23,11 @@ impl AlphaCounter {
         }
     }
 
-    fn to_string(&mut self) -> String {
+    pub fn to_string(&mut self) -> String {
         self.recurse(self.number)
     }
 
-    fn recurse(&mut self, x: usize) -> String {
+    pub fn recurse(&mut self, x: usize) -> String {
         let d = x / self.length;
         let r = x % self.length;
         let t = self.alphabet[r];
