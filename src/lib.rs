@@ -1,3 +1,5 @@
+#![doc = include_str!("../README.md")]
+
 pub struct AlphaCounter {
     number: usize,
     alphabet: Vec<char>,
@@ -23,11 +25,7 @@ impl AlphaCounter {
         }
     }
 
-    pub fn to_string(&mut self) -> String {
-        self.recurse(self.number)
-    }
-
-    pub fn recurse(&mut self, x: usize) -> String {
+    pub fn recurse(&self, x: usize) -> String {
         let d = x / self.length;
         let r = x % self.length;
         let t = self.alphabet[r];
@@ -49,6 +47,12 @@ impl core::iter::Iterator for AlphaCounter {
     }
 }
 
+impl std::fmt::Display for AlphaCounter {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        write!(f, "{}", self.recurse(self.number))
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -57,8 +61,11 @@ mod tests {
     fn lower() {
         assert_eq!(
             AlphaCounter::lower(0).take(30).collect::<Vec<String>>(),
-            vec!["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p",
-            "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "aa", "ab", "ac", "ad"],
+            vec![
+                "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
+                "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x",
+                "y", "z", "aa", "ab", "ac", "ad"
+            ],
         );
     }
 
@@ -66,18 +73,26 @@ mod tests {
     fn upper() {
         assert_eq!(
             AlphaCounter::upper(0).take(30).collect::<Vec<String>>(),
-            vec!["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P",
-            "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "AA", "AB", "AC", "AD"],
+            vec![
+                "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L",
+                "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X",
+                "Y", "Z", "AA", "AB", "AC", "AD"
+            ],
         );
     }
 
     #[test]
     fn custom() {
         assert_eq!(
-            AlphaCounter::custom(0, "abc").take(30).collect::<Vec<String>>(),
-            vec!["a", "b", "c", "aa", "ab", "ac", "ba", "bb", "bc", "ca", "cb", "cc", "aaa", "aab",
-            "aac", "aba", "abb", "abc", "aca", "acb", "acc", "baa", "bab", "bac", "bba", "bbb",
-            "bbc", "bca", "bcb", "bcc"],
+            AlphaCounter::custom(0, "abc")
+                .take(30)
+                .collect::<Vec<String>>(),
+            vec![
+                "a", "b", "c", "aa", "ab", "ac", "ba", "bb", "bc", "ca", "cb",
+                "cc", "aaa", "aab", "aac", "aba", "abb", "abc", "aca", "acb",
+                "acc", "baa", "bab", "bac", "bba", "bbb", "bbc", "bca", "bcb",
+                "bcc"
+            ],
         );
     }
 }
